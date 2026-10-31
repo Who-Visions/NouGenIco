@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nougen-ico"
+version = "1.0.0"
+description = "Autonomous, zero-bloat Windows folder icon pipeline and media skinner"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [
+    { name = "Dav3 Meralus / Who Visions" }
+]
+keywords = ["windows", "icons", "desktop-ini", "folder-icons", "media-server", "automation", "deviantart", "iconarchive"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "Environment :: Win32 (MS Windows)",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: Microsoft :: Windows",
+    "Programming Language :: Python :: 3",
+    "Topic :: Multimedia :: Graphics",
+    "Topic :: System :: Systems Administration",
+]
+dependencies = [
+    "pillow>=10.0.0"
+]
+
+[project.scripts]
+nougen-ico = "nougen_ico.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["nougen_ico*"]

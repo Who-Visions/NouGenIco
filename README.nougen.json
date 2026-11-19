@@ -1,0 +1,69 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Who-Visions/NouGenShards/main/schemas/readme-manifest.schema.json",
+  "schema_version": 1,
+  "project": {
+    "title": "NouGenIco",
+    "description": "Autonomous, zero-bloat Windows folder icon pipeline and media skinner.",
+    "emoji": "🎨"
+  },
+  "table_of_contents": true,
+  "badges": [
+    {
+      "label": "License: MIT",
+      "image": "https://img.shields.io/badge/License-MIT-blue.svg",
+      "url": "https://github.com/Who-Visions/NouGenIco/blob/main/LICENSE"
+    },
+    {
+      "label": "Python: 3.10+",
+      "image": "https://img.shields.io/badge/Python-3.10%2B-brightgreen.svg",
+      "url": "https://python.org"
+    },
+    {
+      "label": "Platform: Windows",
+      "image": "https://img.shields.io/badge/Platform-Windows%2010%2F11-0078D6.svg",
+      "url": "https://microsoft.com/windows"
+    }
+  ],
+  "sections": [
+    {
+      "title": "Overview",
+      "content": "**Autonomous, zero-bloat Windows folder icon pipeline and media skinner.**\n\nDual-engine ingestion from **IconArchive** and **DeviantArt** with 100% portable relative `desktop.ini` bindings.",
+      "emoji": "auto"
+    },
+    {
+      "title": "Highlights",
+      "content": "- **Dual-Engine Ingestion**:\n  - **DeviantArt Engine**: Pulls full-resolution transparent artwork via public oEmbed and rasterizes multi-resolution Windows `.ico` pyramids (`256×256` down to `16×16` RGBA) via Pillow.\n  - **IconArchive Engine**: Discovers, scrapes, and downloads direct native Windows `.ico` binaries with byte-level magic header verification (`00 00 01 00`).\n- **Deterministic Name Normalization**: Automatically strips scene release metadata (`[TGx]`, `WEBRip`, `x265`, `1080p`, `ELiTE`, `NeoNoir`, `HODL`, codec/source tags) to extract canonical series titles.\n- **100% Portable Windows Explorer Binding**:\n  - Writes `folder.ico` directly inside the media folder (`attrib +h`).\n  - Writes `desktop.ini` pointing to relative `IconResource=folder.ico,0` (`attrib +h +s`).\n  - Sets the Windows Shell directory Read-Only bit (`attrib +r <folder>`).\n  - **Zero hardcoded paths**: The skin survives drive letter reassignments, external drive swaps, and network shares.\n- **Batch Media Skinner**: Capable of scanning an entire drive (e.g. `E:\\T.V`) with dozens of series and applying authentic poster folder art in minutes.",
+      "emoji": "auto"
+    },
+    {
+      "title": "Quick Start",
+      "content": "### Installation\n\n```bash\ngit clone https://github.com/Who-Visions/NouGenIco.git\ncd NouGenIco\npip install -e .\n```\n\n### Usage\n\n#### 1. Skin Any Folder with an ICO File\n\n```bash\nnougen-ico skin \"E:\\T.V\\Shogun\" \"icons\\shogun.ico\"\n```\n\n#### 2. Fetch DeviantArt Artwork and Auto-Skin\n\n```bash\nnougen-ico get-da \"https://www.deviantart.com/wake2skate/art/Shogun-1027465653\" --apply \"E:\\T.V\\Shogun\"\n```\n\n#### 3. Harvest Native ICO Packs from IconArchive\n\n```bash\nnougen-ico harvest-ia \"purple-folder\" --out \"icons/purple\" --limit 50\n```\n\n#### 4. Batch-Skin an Entire Media Library Drive\n\n```bash\nnougen-ico batch-media \"E:\\T.V\" --cache \"icons/tv_cache\"\n```",
+      "emoji": "auto"
+    },
+    {
+      "title": "Windows Portable Skinning Spec",
+      "content": "Standard tools (and manual Windows Properties dialogs) bind folder icons using absolute registry or user profile paths (e.g. `C:\\Users\\name\\AppData\\...`). When you move an external drive or change its drive letter, every single folder icon breaks.\n\n**NouGenIco enforces the strict Windows Shell Folder specification**:\n\n1. Directory Attribute: `attrib +r <folder>` (Signals Windows Explorer shell to inspect `desktop.ini`).\n2. Configuration File: `desktop.ini` with `attrib +h +s`:\n\n   ```ini\n   [.ShellClassInfo]\n   IconResource=folder.ico,0\n   [ViewState]\n   Mode=\n   Vid=\n   FolderType=Generic\n   ```\n\n3. Icon Asset: `folder.ico` stored directly in `<folder>` with `attrib +h`.",
+      "emoji": "auto"
+    },
+    {
+      "title": "Repository Layout",
+      "content": "```\nNouGenIco/\n├── nougen_ico/\n│   ├── __init__.py\n│   ├── cli.py             # Unified CLI (skin, get-da, harvest-ia, batch-media)\n│   ├── normalizer.py      # Scene release & filename parser\n│   ├── skinner.py         # Windows Explorer attribute binder\n│   └── engines/\n│       ├── __init__.py\n│       ├── deviantart.py  # oEmbed extraction & ICO rasterizer\n│       └── iconarchive.py # Direct native ICO downloader & scraper\n├── pyproject.toml\n├── requirements.txt\n├── LICENSE\n└── README.md\n```",
+      "emoji": "auto"
+    },
+    {
+      "title": "License",
+      "content": "MIT © [Who Visions](https://github.com/Who-Visions) / Dav3 Meralus. See `LICENSE`.",
+      "emoji": "auto"
+    }
+  ],
+  "links": [
+    {
+      "label": "NouGenIco on GitHub",
+      "url": "https://github.com/Who-Visions/NouGenIco"
+    },
+    {
+      "label": "Who Visions",
+      "url": "https://github.com/Who-Visions"
+    }
+  ]
+}
